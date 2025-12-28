@@ -42,21 +42,69 @@ This repository manages system configuration declaratively, meaning your entire 
 └── flake.lock               # Locked dependency versions
 ```
 
-## Quick Start
+## Installation
 
-### Prerequisites
+### Option 1: Lix Installer (Recommended)
 
-1. Install Nix with flakes enabled:
+[Lix](https://lix.systems/) is a Nix fork with improved error messages and better defaults. It includes an uninstaller, making it easier to revert if you decide Nix isn't for you.
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.lix.systems/lix | sh -s -- install
+```
+
+After installation, follow the on-screen instructions to configure your shell.
+
+**To uninstall Lix/Nix later:**
+```bash
+/nix/nix-installer uninstall
+```
+
+### Option 2: Official Nix Installer
+
+The official installer works but is harder to uninstall cleanly:
+
+```bash
+curl -L https://nixos.org/nix/install | sh
+```
+
+You'll need to manually enable flakes by adding to `~/.config/nix/nix.conf`:
+```
+experimental-features = nix-command flakes
+```
+
+### Setting Up This Configuration
+
+This configuration is based on [dustinlyons/nixos-config](https://github.com/dustinlyons/nixos-config), which provides step-by-step instructions for macOS setup.
+
+1. **Clone this repository:**
    ```bash
-   curl -L https://nixos.org/nix/install | sh
+   git clone https://github.com/natea/nixos-config.git
+   cd nixos-config
    ```
 
-2. Enable flakes (add to `~/.config/nix/nix.conf`):
-   ```
-   experimental-features = nix-command flakes
+2. **Update the user configuration:**
+   - Edit `flake.nix` and change `user = "backlit"` to your username
+   - Edit `modules/shared/home-manager.nix` and update `name`, `user`, and `email`
+
+3. **Build and apply:**
+   ```bash
+   nix run .#build-switch
    ```
 
-### Building and Applying
+### Uninstalling Nix Completely
+
+If you installed with Lix:
+```bash
+/nix/nix-installer uninstall
+```
+
+If you installed with the official installer, see the [Nix manual uninstall instructions](https://nixos.org/manual/nix/stable/installation/uninstall.html). The process involves:
+1. Removing the Nix store (`/nix`)
+2. Removing Nix configuration files
+3. Removing shell profile modifications
+4. Removing the `nixbld` users and group (macOS)
+
+## Building and Applying
 
 ```bash
 # Build the configuration (without applying)
@@ -311,8 +359,19 @@ nix-collect-garbage -d
 
 ## Resources
 
+### Official Documentation
 - [NixOS Manual](https://nixos.org/manual/nixos/stable/)
 - [Nix Package Search](https://search.nixos.org/packages)
 - [Home Manager Manual](https://nix-community.github.io/home-manager/)
 - [nix-darwin Manual](https://daiderd.com/nix-darwin/manual/)
 - [Homebrew Cask Search](https://formulae.brew.sh/cask/)
+
+### Installation & Setup
+- [Lix Installer](https://lix.systems/install/) - Recommended Nix installer with easy uninstall
+- [nix-darwin](https://github.com/nix-darwin/nix-darwin) - NixOS-style configuration for macOS
+- [dustinlyons/nixos-config](https://github.com/dustinlyons/nixos-config) - Base configuration this repo is derived from
+
+### Learning Nix
+- [Nix Pills](https://nixos.org/guides/nix-pills/) - Step-by-step Nix tutorial
+- [nix.dev](https://nix.dev/) - Official Nix learning resources
+- [Zero to Nix](https://zero-to-nix.com/) - Beginner-friendly Nix introduction
