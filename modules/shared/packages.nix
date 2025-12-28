@@ -67,4 +67,16 @@ with pkgs; [
   # Python packages
   python3
   virtualenv
+
+  # AI/LLM tools
+  ollama
+  python3Packages.llm
+  python3Packages.llm-anthropic
+  python3Packages.llm-deepseek
+  python3Packages.llm-gemini
+  python3Packages.llm-grok
+  python3Packages.llm-ollama
+  python3Packages.llm-openrouter
+  python3Packages.llm-perplexity
+  # Note: llm-openai is not needed - OpenAI support is built into the base llm package
 ]
