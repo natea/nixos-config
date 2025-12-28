@@ -1,0 +1,30 @@
+# Nix build outputs
+result
+result-*
+
+# Secrets (never commit unencrypted secrets)
+*.age.dec
+*-decrypted
+secrets/*.txt
+secrets/*.key
+!secrets/*.age
+
+# Editor and IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+.direnv/
+.envrc.local
+
+# Local overrides (for machine-specific configs not meant to be shared)
+local.nix
+local/
+*.local.nix
