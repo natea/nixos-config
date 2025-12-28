@@ -292,25 +292,55 @@ For configuration files managed in your home directory.
 
 ## Secrets Management
 
-This configuration uses [agenix](https://github.com/ryantm/agenix) for secret management.
+This configuration uses [agenix](https://github.com/ryantm/agenix) for secret management. Secrets are stored in a separate private repository to keep them out of your public dotfiles.
 
-### Adding a New Secret
+### Setting Up Your Secrets Repository
 
-1. Define the secret in `secrets.nix`:
+1. **Create a private GitHub repository** for your secrets (e.g., `yourusername/nix-secrets`)
+
+   Use [dustinlyons/nix-secrets-example](https://github.com/dustinlyons/nix-secrets-example) as a template.
+
+2. **During `nix run .#apply`**, you'll be prompted for your secrets repository path (e.g., `yourusername/nix-secrets`)
+
+3. **Structure of the secrets repository:**
+   ```
+   nix-secrets/
+   ├── secrets.nix          # Defines which keys can decrypt each secret
+   ├── github-ssh-key.age   # Encrypted GitHub SSH private key
+   └── ...                  # Other encrypted secrets
+   ```
+
+4. **The `secrets.nix` file** maps secrets to the public keys that can decrypt them:
    ```nix
+   let
+     your_key = "ssh-ed25519 AAAA... you@machine";
+   in
    {
-     "mysecret.age".publicKeys = [ user-key system-key ];
+     "github-ssh-key.age".publicKeys = [ your_key ];
    }
    ```
 
-2. Create the encrypted secret:
-   ```bash
-   agenix -e secrets/mysecret.age
+### Adding a New Secret
+
+1. Define the secret in your nix-secrets repo's `secrets.nix`:
+   ```nix
+   {
+     "mysecret.age".publicKeys = [ your-ssh-public-key ];
+   }
    ```
 
-3. Reference in configuration:
+2. Create the encrypted secret using age:
+   ```bash
+   cd ~/nix-secrets
+   age -r "ssh-ed25519 AAAA..." -o mysecret.age < /path/to/plaintext-secret
+   ```
+
+3. Reference in this configuration (e.g., `modules/darwin/secrets.nix`):
    ```nix
-   age.secrets.mysecret.file = ../secrets/mysecret.age;
+   age.secrets.mysecret = {
+     file = "${secrets}/mysecret.age";
+     path = "/Users/${user}/.config/myapp/secret";
+   };
    ```
 
 ## Updating
