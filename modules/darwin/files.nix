@@ -1,10 +1,23 @@
 { user, config, pkgs, ... }:
 
 let
-  xdg_configHome = "${config.users.users.${user}.home}/.config";
-  xdg_dataHome   = "${config.users.users.${user}.home}/.local/share";
-  xdg_stateHome  = "${config.users.users.${user}.home}/.local/state"; in
+  homeDir = config.home.homeDirectory;
+  xdg_configHome = "${homeDir}/.config";
+  xdg_dataHome   = "${homeDir}/.local/share";
+  xdg_stateHome  = "${homeDir}/.local/state";
+in
 {
+
+  # DevPod CLI symlink
+  ".local/bin/devpod" = {
+    source = config.lib.file.mkOutOfStoreSymlink "/Applications/DevPod.app/Contents/MacOS/devpod-cli";
+  };
+
+  # Day One CLI symlink
+  # Note: Day One must be installed and launched once before the CLI works
+  ".local/bin/dayone" = {
+    source = config.lib.file.mkOutOfStoreSymlink "/Applications/Day One.app/Contents/Resources/dayone2";
+  };
 
   # Raycast script so that "Run Emacs" is available and uses Emacs daemon
   "${xdg_dataHome}/bin/emacsclient" = {

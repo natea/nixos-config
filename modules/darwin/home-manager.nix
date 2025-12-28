@@ -8,7 +8,6 @@ let
     emacsclient -c -n &
   '';
   sharedFiles = import ../shared/files.nix { inherit config pkgs; };
-  additionalFiles = import ./files.nix { inherit user config pkgs; };
 in
 {
   imports = [
@@ -41,19 +40,28 @@ in
 
     masApps = {
       # "wireguard" = 1451685025;
+      "Day One" = 1055511498;
+      "Perplexity" = 6714467650;
+      "Save to Reader" = 1640236961; # for Readwise
+      "Copilot" = 1447330651;
     };
   };
 
   # Enable home-manager
   home-manager = {
     useGlobalPkgs = true;
-    users.${user} = { pkgs, config, lib, ... }:{
+    backupFileExtension = "backup";
+    users.${user} = { pkgs, config, lib, ... }:
+      let
+        # Import files with home-manager's config (has config.lib.file)
+        hmAdditionalFiles = import ./files.nix { inherit user pkgs; config = config; };
+      in {
       home = {
         enableNixpkgsReleaseCheck = false;
         packages = pkgs.callPackage ./packages.nix {};
         file = lib.mkMerge [
           sharedFiles
-          additionalFiles
+          hmAdditionalFiles
           { "emacs-launcher.command".source = myEmacsLauncher; }
         ];
 
