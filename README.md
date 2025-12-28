@@ -83,7 +83,8 @@ This configuration is based on [dustinlyons/nixos-config](https://github.com/dus
    ```
 
 2. **Update the user configuration:**
-   - Edit `flake.nix` and change `user = "backlit"` to your username
+   - Edit `flake.nix` and change `user = "natea"` to your macOS username
+     (This should match your home folder name, e.g., `/Users/yourusername`)
    - Edit `modules/shared/home-manager.nix` and update `name`, `user`, and `email`
 
 3. **Build and apply:**
