@@ -36,6 +36,9 @@ with pkgs; [
 
   # Node.js development tools
   nodejs_24
+  nodePackages.pnpm
+  nodePackages.wrangler
+  claude-code
 
   # Text and terminal utilities
   htop
