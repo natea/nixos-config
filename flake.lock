@@ -271,11 +271,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1766837636,
-        "narHash": "sha256-Zw2fKArBOkGMk2LgK5RslNVJt60tyogfejZfzqSBv30=",
+        "lastModified": 1766952718,
+        "narHash": "sha256-p3YydJQs8PmxjOnIlm3vR9eNWiwSiYB+REIs+P0ky84=",
         "ref": "refs/heads/main",
-        "rev": "39ff5207ead82c921764da205fa5a771ba433cac",
-        "revCount": 3,
+        "rev": "127a9135d7c15e0e586effd3488eee51e52c06d7",
+        "revCount": 4,
         "type": "git",
         "url": "ssh://git@github.com/natea/nix-secrets.git"
       },
