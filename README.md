@@ -82,12 +82,18 @@ This configuration is based on [dustinlyons/nixos-config](https://github.com/dus
    cd nixos-config
    ```
 
-2. **Update the user configuration:**
-   - Edit `flake.nix` and change `user = "natea"` to your macOS username
-     (This should match your home folder name, e.g., `/Users/yourusername`)
-   - Edit `modules/shared/home-manager.nix` and update `name`, `user`, and `email`
+2. **Make apps executable:**
+   ```bash
+   find apps/$(uname -m | sed 's/arm64/aarch64/')-darwin -type f \( -name apply -o -name build -o -name build-switch -o -name create-keys -o -name copy-keys -o -name check-keys -o -name rollback \) -exec chmod +x {} \;
+   ```
 
-3. **Build and apply:**
+3. **Apply your current user info:**
+   ```bash
+   nix run .#apply
+   ```
+   This will prompt you for your username, name, and email, then update the configuration files automatically.
+
+4. **Build and switch to new configuration:**
    ```bash
    nix run .#build-switch
    ```
@@ -376,3 +382,18 @@ nix-collect-garbage -d
 - [Nix Pills](https://nixos.org/guides/nix-pills/) - Step-by-step Nix tutorial
 - [nix.dev](https://nix.dev/) - Official Nix learning resources
 - [Zero to Nix](https://zero-to-nix.com/) - Beginner-friendly Nix introduction
+
+## Manual Configuration
+
+If you prefer to configure user settings manually instead of using `nix run .#apply`, edit these files:
+
+1. **`flake.nix`** - Change `user = "natea"` to your macOS username
+   (This should match your home folder name, e.g., `/Users/yourusername`)
+
+2. **`modules/shared/home-manager.nix`** - Update the git configuration:
+   ```nix
+   programs.git = {
+     userName = "Your Name";
+     userEmail = "your.email@example.com";
+   };
+   ```
