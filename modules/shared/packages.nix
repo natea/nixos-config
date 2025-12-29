@@ -22,6 +22,8 @@ with pkgs; [
   # Cloud-related tools and SDKs
   docker
   docker-compose
+  lima      # Linux VM manager for macOS
+  colima    # Container runtime (Docker Desktop alternative)
 
   # Media-related packages
   emacs-all-the-icons-fonts

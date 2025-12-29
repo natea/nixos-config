@@ -98,6 +98,15 @@ This configuration is based on [dustinlyons/nixos-config](https://github.com/dus
    nix run .#build-switch
    ```
 
+5. **Run post-install setup scripts:**
+   ```bash
+   # Configure DevPod to work with Nix-managed SSH config
+   ~/.local/bin/setup-devpod
+
+   # Install npm packages not available in nixpkgs
+   ~/.local/bin/bootstrap-npm-packages
+   ```
+
 ### Uninstalling Nix Completely
 
 If you installed with Lix:
@@ -393,6 +402,47 @@ nix-collect-garbage -d
 - **Package not found:** Search on https://search.nixos.org/packages
 - **Permission errors:** Ensure you have admin rights on macOS
 - **Mac App Store errors:** Sign in to the App Store first
+
+## DevPod and Container Development
+
+This configuration includes [DevPod](https://devpod.sh/) for development containers, with [Colima](https://github.com/abiosoft/colima) as a lightweight Docker Desktop alternative.
+
+### Initial Setup
+
+After installing the Nix configuration, run the DevPod setup script:
+
+```bash
+~/.local/bin/setup-devpod
+```
+
+This script:
+1. Creates a writable `~/.ssh/config_external` file (since the main SSH config is Nix-managed and read-only)
+2. Configures DevPod to write its SSH entries to this file
+3. The main `~/.ssh/config` includes `config_external`, so everything works seamlessly
+
+### Using Colima Instead of Docker Desktop
+
+Colima provides a lighter-weight Docker runtime. To use it:
+
+```bash
+# Start Colima (creates a Linux VM with Docker)
+colima start
+
+# Verify Docker is working
+docker ps
+
+# Stop when done
+colima stop
+```
+
+DevPod will automatically use whichever Docker runtime is available. No special configuration needed.
+
+### Why This Setup?
+
+The `~/.ssh/config` file is managed by home-manager (Nix) and is read-only. DevPod needs to write SSH configuration for each workspace it creates. The solution:
+- Main SSH config (`~/.ssh/config`) includes `~/.ssh/config_external`
+- DevPod writes to `config_external` (writable, not Nix-managed)
+- Both files are read by SSH, giving you the best of both worlds
 
 ## Resources
 
