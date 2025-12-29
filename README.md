@@ -105,6 +105,9 @@ This configuration is based on [dustinlyons/nixos-config](https://github.com/dus
 
    # Install npm packages not available in nixpkgs
    ~/.local/bin/bootstrap-npm-packages
+
+   # Complete Backblaze installation (requires running the installer manually)
+   open "/opt/homebrew/Caskroom/backblaze/$(ls /opt/homebrew/Caskroom/backblaze)/Backblaze Installer.app"
    ```
 
 ### Uninstalling Nix Completely
@@ -402,6 +405,23 @@ nix-collect-garbage -d
 - **Package not found:** Search on https://search.nixos.org/packages
 - **Permission errors:** Ensure you have admin rights on macOS
 - **Mac App Store errors:** Sign in to the App Store first
+
+### Third-Party Homebrew Taps
+
+This configuration uses `mutableTaps = false` in `flake.nix` to keep Homebrew fully managed by Nix and prevent drift. This means third-party taps (like `spotinst/tap`) cannot be declared in the Nix config.
+
+**To install packages from third-party taps**, install them manually:
+```bash
+brew install spotinst/tap/spotctl
+```
+
+**If you need declarative third-party taps**, you can change `mutableTaps = true` in `flake.nix`. Note that this makes the Taps directory writable, allowing manual `brew tap`/`untap` commands outside of Nix.
+
+If you previously had `mutableTaps = false` and switch to `true`, you may need to fix existing permissions:
+```bash
+sudo chown -R $(whoami):admin /opt/homebrew/Library/Taps
+sudo chmod -R u+w /opt/homebrew/Library/Taps
+```
 
 ## DevPod and Container Development
 

@@ -14,7 +14,7 @@ _:
   "postico"
   "godot"
   "devpod"
-  "google-cloud-sdk"
+  "gcloud-cli"
 
   # Productivity Tools
   "raycast"
@@ -27,6 +27,7 @@ _:
   "brave-browser"
   "firefox"
   "arc"
+  "comet"  # Perplexity's AI-integrated browser
 
   # Communication Tools - Examples (uncomment as needed)
   "discord"
@@ -43,7 +44,7 @@ _:
   "1password-cli"
   "shottr"
   "dropbox"
-  "backblaze"
+  "backblaze"  # Requires manual installer run - see README
   "google-drive"
   
   # Browser extensions are installed from within each browser, not via Homebrew
@@ -54,6 +55,7 @@ _:
   # AI Tools - Examples (uncomment as needed)
   "chatgpt"
   "claude"
+  "granola"  # AI notepad for meetings
 
   # "perplexity-ai"  # No cask available - install from App Store or website
   # "groq"  # No cask available - use web app at groq.com

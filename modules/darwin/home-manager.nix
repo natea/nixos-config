@@ -27,6 +27,9 @@ in
     casks = pkgs.callPackage ./casks.nix {};
     # onActivation.cleanup = "uninstall";
 
+    # Note: Third-party taps (like spotinst/tap) require mutableTaps = true in flake.nix
+    # Since we use mutableTaps = false, install them manually: brew install spotinst/tap/spotctl
+
     # These app IDs are from using the mas CLI app
     # mas = mac app store
     # https://github.com/mas-cli/mas
@@ -44,6 +47,7 @@ in
       "Perplexity" = 6714467650;
       "Save to Reader" = 1640236961; # for Readwise
       "Copilot" = 1447330651;
+      "Code Piper Lite" = 1669959741;
     };
   };
 

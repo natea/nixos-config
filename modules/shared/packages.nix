@@ -1,5 +1,9 @@
 { pkgs }:
 
+let
+  spotctl = pkgs.callPackage ./spotctl.nix {};
+in
+
 with pkgs; [
   # General packages for development and system management
   alacritty
@@ -22,8 +26,10 @@ with pkgs; [
   # Cloud-related tools and SDKs
   docker
   docker-compose
-  lima      # Linux VM manager for macOS
-  colima    # Container runtime (Docker Desktop alternative)
+  lima        # Linux VM manager for macOS
+  colima      # Container runtime (Docker Desktop alternative)
+  lazydocker  # Terminal UI for Docker containers
+  spotctl     # CLI for Spot by NetApp (Rackspace Spot)
 
   # Media-related packages
   emacs-all-the-icons-fonts
