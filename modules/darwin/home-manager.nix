@@ -48,6 +48,9 @@ in
       "Save to Reader" = 1640236961; # for Readwise
       "Copilot" = 1447330651;
       "Code Piper Lite" = 1669959741;
+      "Microsoft Word" = 462054704;
+      "Microsoft PowerPoint" = 462062816;
+      "Microsoft Excel" = 462058435;
     };
   };
 
