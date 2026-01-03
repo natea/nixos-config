@@ -46,6 +46,7 @@ _:
   "1password-cli"
   "shottr"
   "screen-studio"  # Screen recorder and editor
+  "descript"  # Audio and video editor
   "dropbox"
   "backblaze"  # Requires manual installer run - see README
   "google-drive"
