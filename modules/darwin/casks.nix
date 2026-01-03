@@ -20,6 +20,7 @@ _:
   "raycast"
   "sunsama"
   "evernote"
+  "raindropio"  # Bookmark manager
   # "dayone"  # Using Mac App Store version instead (masApps)
 
   # Browsers
@@ -37,12 +38,14 @@ _:
   "zoom"
   "whatsapp"
   "superhuman"
+  "signal"
 
   # Utility Tools - Examples (uncomment as needed)
   # "syncthing"
   "1password"
   "1password-cli"
   "shottr"
+  "screen-studio"  # Screen recorder and editor
   "dropbox"
   "backblaze"  # Requires manual installer run - see README
   "google-drive"
