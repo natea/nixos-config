@@ -1,4 +1,4 @@
-{ agenix, config, pkgs, ... }:
+{ agenix, config, pkgs, fabric, ... }:
 
 let user = "backlit"; in
 
@@ -38,6 +38,7 @@ let user = "backlit"; in
   environment.systemPackages = with pkgs; [
     emacs-unstable
     agenix.packages."${pkgs.stdenv.hostPlatform.system}".default
+    fabric.packages."${pkgs.stdenv.hostPlatform.system}".default  # AI prompt framework
   ] ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
 
   launchd.user.agents.emacs.path = [ config.environment.systemPath ];
@@ -74,7 +75,7 @@ let user = "backlit"; in
       };
 
       dock = {
-        autohide = false;
+        autohide = true;
         show-recents = false;
         launchanim = true;
         orientation = "bottom";

@@ -31,8 +31,12 @@
       url = "git+ssh://git@github.com/natea/nix-secrets.git";
       flake = false;
     };
+    fabric = {
+      url = "github:danielmiessler/Fabric";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, agenix, secrets } @inputs:
+  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, agenix, secrets, fabric } @inputs:
     let
       user = "backlit";
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
