@@ -32,6 +32,7 @@ with pkgs; [
   spotctl     # CLI for Spot by NetApp (Rackspace Spot)
 
   # Media-related packages
+  yt-dlp      # YouTube and video downloader
   emacs-all-the-icons-fonts
   dejavu_fonts
   ffmpeg
