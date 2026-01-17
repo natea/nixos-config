@@ -47,6 +47,7 @@ with pkgs; [
   nodejs_24
   nodePackages.pnpm
   nodePackages.wrangler
+  bun         # Fast JavaScript runtime, bundler, and package manager
   claude-code
 
   # Text and terminal utilities
