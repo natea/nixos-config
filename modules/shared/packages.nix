@@ -76,8 +76,7 @@ with pkgs; [
   
   # Programming languages and runtimes
   go
-  rustc
-  cargo
+  rustup      # Rust toolchain manager (provides rustc, cargo, etc.)
   openjdk
 
   # Python packages
