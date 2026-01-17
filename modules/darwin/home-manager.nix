@@ -25,9 +25,6 @@ in
   homebrew = {
     enable = true;
     casks = pkgs.callPackage ./casks.nix {};
-    brews = [
-      "postgresql@16"
-    ];
     # onActivation.cleanup = "uninstall";
 
     # Note: Third-party taps (like spotinst/tap) require mutableTaps = true in flake.nix

@@ -81,6 +81,9 @@ with pkgs; [
   rustup      # Rust toolchain manager (provides rustc, cargo, etc.)
   openjdk
 
+  # Databases
+  postgresql_16  # PostgreSQL 16
+
   # Python packages
   python3
   (lib.lowPrio python311)  # Python 3.11 (lower priority to avoid conflicts with python3)
