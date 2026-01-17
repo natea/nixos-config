@@ -21,6 +21,7 @@ _:
   "sunsama"
   "evernote"
   "raindropio"  # Bookmark manager
+  "mark-text"  # Markdown editor (requires: xattr -cr /Applications/MarkText.app)
   # "dayone"  # Using Mac App Store version instead (masApps)
 
   # Browsers
@@ -56,6 +57,9 @@ _:
 
   # "rectangle"
 
+  # Design Tools
+  "figma"
+
   # AI Tools - Examples (uncomment as needed)
   "chatgpt"
   "claude"
@@ -70,4 +74,10 @@ _:
   # Entertainment Tools - Examples (uncomment as needed)
   "spotify"
   "vlc"
+
+  # Reading & Books
+  "calibre"  # E-book management
+
+  # Voice
+  # "wispr-flow"  # No cask available - download from https://wispr.ai
 ]
