@@ -73,6 +73,17 @@ in
           { "emacs-launcher.command".source = myEmacsLauncher; }
         ];
 
+        # Add additional bin directories to PATH
+        sessionPath = [
+          "$HOME/.cargo/bin"
+          "$HOME/.local/bin"
+        ];
+
+        # Personal AI Infrastructure directory
+        sessionVariables = {
+          PAI_DIR = "$HOME/.config/pai";
+        };
+
         stateVersion = "23.11";
       };
       programs = {} // import ../shared/home-manager.nix { inherit config pkgs lib; };
