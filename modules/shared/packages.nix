@@ -1,7 +1,9 @@
-{ pkgs }:
+{ pkgs, lib ? pkgs.lib }:
 
 let
   spotctl = pkgs.callPackage ./spotctl.nix {};
+  maestro = pkgs.callPackage ./maestro.nix {};
+  zenflow = pkgs.callPackage ./zenflow.nix {};
 in
 
 with pkgs; [
@@ -81,10 +83,20 @@ with pkgs; [
 
   # Python packages
   python3
+  (lib.lowPrio python311)  # Python 3.11 (lower priority to avoid conflicts with python3)
   virtualenv
+  uv          # Fast Python package manager
+  ruff        # Fast Python linter and formatter
+  poetry      # Python dependency management
+  python3Packages.cython  # C-extensions for Python
+
+  # Compilers and toolchains
+  llvm        # LLVM compiler infrastructure
 
   # AI/LLM tools
   ollama
+  maestro     # AI agent command center
+  zenflow     # Multi-agent orchestration for production engineering
   python3Packages.llm
   python3Packages.llm-anthropic
   python3Packages.llm-deepseek
