@@ -64,9 +64,12 @@ with pkgs; [
   # Development tools
   curl
   gh
+  ngrok        # Secure tunnels to localhost
   terraform
   kubectl
   awscli2
+  flyctl      # Fly.io CLI
+  cloudflared # Cloudflare Tunnel client
   lazygit
   fzf
   direnv
