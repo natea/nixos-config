@@ -24,6 +24,7 @@ with pkgs; [
   age-plugin-yubikey
   gnupg
   libfido2
+  _1password-cli  # 1Password CLI (op)
 
   # Cloud-related tools and SDKs
   docker
