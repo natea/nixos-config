@@ -18,6 +18,7 @@ _:
 
   # Productivity Tools
   "raycast"
+  "linear-linear"  # Linear project management
   "sunsama"
   "evernote"
   "raindropio"  # Bookmark manager
