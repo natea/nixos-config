@@ -65,8 +65,8 @@ let name = "Nate Aune";
       # Load API keys from 1Password (requires: op signin)
       # Only load if op is available and we're in an interactive shell
       if command -v op &> /dev/null && [[ $- == *i* ]]; then
-        export OPENAI_API_KEY=$(op read "op://Private/OpenAI API key (for nixai)/credential" 2>/dev/null)
-        export ANTHROPIC_API_KEY=$(op read "op://Private/Anthropic API Key/credential" 2>/dev/null)
+        export OPENAI_API_KEY=$(op item get OpenAI-API-key-for-nixai --fields credential --reveal 2>/dev/null)
+        export ANTHROPIC_API_KEY=$(op item get Anthropic-API-Key --fields credential --reveal 2>/dev/null)
       fi
     '';
   };
