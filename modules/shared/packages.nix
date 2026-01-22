@@ -52,7 +52,7 @@ with pkgs; [
   nodePackages.wrangler
   bun         # Fast JavaScript runtime, bundler, and package manager
   claude-code
-
+                      
   # Text and terminal utilities
   htop
   jetbrains-mono
@@ -74,6 +74,7 @@ with pkgs; [
   flyctl      # Fly.io CLI
   cloudflared # Cloudflare Tunnel client
   lazygit
+  jujutsu    # Git-compatible VCS (jj command)
   fzf
   direnv
   
