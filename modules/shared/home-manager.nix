@@ -62,6 +62,9 @@ let name = "Nate Aune";
       # Always color ls and group directories
       alias ls='ls --color=auto'
 
+      # nixai with OpenAI defaults (workaround for config not being read)
+      alias nixai='nixai --provider openai --model gpt-4o'
+
       # Load API keys from 1Password (requires: op signin)
       # Only load if op is available and we're in an interactive shell
       if command -v op &> /dev/null && [[ $- == *i* ]]; then
