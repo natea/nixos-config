@@ -64,13 +64,6 @@ let name = "Nate Aune";
 
       # nixai with OpenAI defaults (workaround for config not being read)
       alias nixai='nixai --provider openai --model gpt-4o'
-
-      # Load API keys from 1Password (requires: op signin)
-      # Only load if op is available and we're in an interactive shell
-      if command -v op &> /dev/null && [[ $- == *i* ]]; then
-        export OPENAI_API_KEY=$(op item get OpenAI-API-key-for-nixai --fields credential --reveal 2>/dev/null)
-        export ANTHROPIC_API_KEY=$(op item get Anthropic-API-Key --fields credential --reveal 2>/dev/null)
-      fi
     '';
   };
 
