@@ -25,6 +25,9 @@ in
   homebrew = {
     enable = true;
     casks = pkgs.callPackage ./casks.nix {};
+    brews = [
+      "gromgit/fuse/sshfs-mac"  # SSHFS for mounting remote filesystems
+    ];
     # onActivation.cleanup = "uninstall";
 
     # Note: Third-party taps (like spotinst/tap) require mutableTaps = true in flake.nix
@@ -82,6 +85,7 @@ in
         # Personal AI Infrastructure directory
         sessionVariables = {
           PAI_DIR = "$HOME/.config/pai";
+          DOCKER_HOST = "unix://$HOME/.colima/default/docker.sock";
         };
 
         stateVersion = "23.11";

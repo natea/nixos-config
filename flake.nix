@@ -23,6 +23,10 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+    homebrew-fuse = {
+      url = "github:gromgit/homebrew-fuse";
+      flake = false;
+    };
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,17 +40,37 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, agenix, secrets, fabric } @inputs:
+  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, homebrew-fuse, home-manager, nixpkgs, disko, agenix, secrets, fabric } @inputs:
     let
       user = "backlit";
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
       darwinSystems = [ "aarch64-darwin" "x86_64-darwin" ];
       forAllSystems = f: nixpkgs.lib.genAttrs (linuxSystems ++ darwinSystems) f;
-      devShell = system: let pkgs = nixpkgs.legacyPackages.${system}; in {
+      devShell = system: let
+        pkgs = nixpkgs.legacyPackages.${system};
+        # Create a wrapper script for devpod CLI (macOS only)
+        devpod = pkgs.writeShellScriptBin "devpod" ''
+          exec /Applications/DevPod.app/Contents/MacOS/devpod-cli "$@"
+        '';
+      in {
         default = with pkgs; mkShell {
-          nativeBuildInputs = with pkgs; [ bashInteractive git age age-plugin-yubikey ];
+          nativeBuildInputs = with pkgs; [
+            bashInteractive
+            git
+            age
+            age-plugin-yubikey
+          ] ++ lib.optionals stdenv.isDarwin [
+            devpod
+            colima
+            docker-client
+          ];
           shellHook = with pkgs; ''
             export EDITOR=vim
+          '' + lib.optionalString stdenv.isDarwin ''
+            echo "🚀 DevPod environment loaded"
+            echo "   devpod  -> /Applications/DevPod.app/Contents/MacOS/devpod-cli"
+            echo "   colima  -> $(which colima)"
+            echo "   docker  -> $(which docker)"
           '';
         };
       };
@@ -99,6 +123,7 @@
                   "homebrew/homebrew-core" = homebrew-core;
                   "homebrew/homebrew-cask" = homebrew-cask;
                   "homebrew/homebrew-bundle" = homebrew-bundle;
+                  "gromgit/homebrew-fuse" = homebrew-fuse;
                 };
                 mutableTaps = false;
                 autoMigrate = true;

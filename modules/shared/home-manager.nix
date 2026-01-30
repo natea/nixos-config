@@ -28,9 +28,15 @@ let name = "Nate Aune";
       fi
 
       # Define variables for directories
+      export PATH=$HOME/.bun/bin:$PATH
       export PATH=$HOME/.pnpm-packages/bin:$HOME/.pnpm-packages:$PATH
       export PATH=$HOME/.npm-packages/bin:$HOME/bin:$PATH
       export PATH=$HOME/.local/share/bin:$PATH
+
+      # Homebrew (macOS)
+      if [[ -f /opt/homebrew/bin/brew ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+      fi
 
       # Remove history data we don't want to see
       export HISTIGNORE="pwd:ls:cd"
@@ -64,6 +70,10 @@ let name = "Nate Aune";
 
       # nixai with OpenAI defaults (workaround for config not being read)
       alias nixai='nixai --provider openai --model gpt-4o'
+
+      # DGX Spark mount helpers (requires macfuse + sshfs-mac)
+      alias dgx-mount='mkdir -p ~/mnt/dgx && sshfs natea@sparc-ca4b:/workspaces/backlit-devpod-spark ~/mnt/dgx -o allow_other,defer_permissions,IdentityFile=~/.ssh/id_ed25519,reconnect,ServerAliveInterval=15,ServerAliveCountMax=3'
+      alias dgx-unmount='umount ~/mnt/dgx'
     '';
   };
 
@@ -288,6 +298,19 @@ let name = "Nate Aune";
           )
           (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin
             "/Users/${user}/.ssh/id_github"
+          )
+        ];
+      };
+      "spark" = {
+        hostname = "100.115.246.4";
+        user = "natea";
+        identitiesOnly = true;
+        identityFile = [
+          (lib.mkIf pkgs.stdenv.hostPlatform.isLinux
+            "/home/${user}/.ssh/id_ed25519"
+          )
+          (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin
+            "/Users/${user}/.ssh/id_ed25519"
           )
         ];
       };

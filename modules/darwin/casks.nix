@@ -44,6 +44,8 @@ _:
 
   # Utility Tools - Examples (uncomment as needed)
   # "syncthing"
+  "macfuse"  # Required for SSHFS filesystem mounting
+  "tailscale"
   "1password"
   "1password-cli"
   "shottr"
