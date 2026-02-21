@@ -32,12 +32,12 @@ with pkgs; [
   lima        # Linux VM manager for macOS
   colima      # Container runtime (Docker Desktop alternative)
   lazydocker  # Terminal UI for Docker containers
+  mutagen     # File sync for remote development
   spotctl     # CLI for Spot by NetApp (Rackspace Spot)
   tailscale   # Mesh VPN built on WireGuard
 
   # Media-related packages
   yt-dlp      # YouTube and video downloader
-  emacs-all-the-icons-fonts
   dejavu_fonts
   ffmpeg
   fd
@@ -52,8 +52,7 @@ with pkgs; [
   nodePackages.pnpm
   nodePackages.wrangler
   bun         # Fast JavaScript runtime, bundler, and package manager
-  claude-code
-                      
+
   # Text and terminal utilities
   htop
   jetbrains-mono
@@ -88,18 +87,23 @@ with pkgs; [
   postgresql_16  # PostgreSQL 16
 
   # Python packages
-  python3
+  # Create a Python environment with packages bundled together
+  # (Installing python3 and python3Packages separately doesn't merge them)
+  (python3.withPackages (ps: with ps; [
+    setuptools  # Provides distutils for node-gyp (removed in Python 3.12+)
+    cython      # C-extensions for Python
+  ]))
   (lib.lowPrio python311)  # Python 3.11 (lower priority to avoid conflicts with python3)
   virtualenv
   uv          # Fast Python package manager
   ruff        # Fast Python linter and formatter
-  poetry      # Python dependency management
-  python3Packages.cython  # C-extensions for Python
+  # poetry    # Python dependency management (disabled: rapidfuzz build fails with Python 3.13)
 
   # Compilers and toolchains
   llvm        # LLVM compiler infrastructure
 
   # AI/LLM tools
+  gemini-cli  # Google Gemini AI in the terminal
   ollama
   maestro     # AI agent command center
   zenflow     # Multi-agent orchestration for production engineering

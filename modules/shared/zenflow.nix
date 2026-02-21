@@ -6,7 +6,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url = "https://download.zencoder.ai/zenflowapp/latest/darwin-arm64/Zenflow.dmg";
-    sha256 = "1ay4kc3wjvb1mblfd2rdlpm2a0pai9bkdr0220vhrkll1q3ih3nj";
+    sha256 = "sha256-1ZklOPrMOaNbAYxAXFqzQfKWT2+EmUp19CJFRHAIekM=";
   };
 
   nativeBuildInputs = [ _7zz ];

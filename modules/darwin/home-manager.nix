@@ -2,11 +2,6 @@
 
 let
   user = "backlit";
-  # Define the content of your file as a derivation
-  myEmacsLauncher = pkgs.writeScript "emacs-launcher.command" ''
-    #!/bin/sh
-    emacsclient -c -n &
-  '';
   sharedFiles = import ../shared/files.nix { inherit config pkgs; };
 in
 {
@@ -48,6 +43,7 @@ in
       # "wireguard" = 1451685025;
       "Day One" = 1055511498;
       "Perplexity" = 6714467650;
+      "Sequel Ace" = 1518036000;
       "Save to Reader" = 1640236961; # for Readwise
       "Copilot" = 1447330651;
       "Code Piper Lite" = 1669959741;
@@ -73,7 +69,6 @@ in
         file = lib.mkMerge [
           sharedFiles
           hmAdditionalFiles
-          { "emacs-launcher.command".source = myEmacsLauncher; }
         ];
 
         # Add additional bin directories to PATH
@@ -90,7 +85,22 @@ in
 
         stateVersion = "23.11";
       };
-      programs = {} // import ../shared/home-manager.nix { inherit config pkgs lib; };
+      programs = {
+        # GPG configuration
+        gpg = {
+          enable = true;
+        };
+      } // import ../shared/home-manager.nix { inherit config pkgs lib; };
+
+      # GPG agent for macOS - handles PIN entry
+      services.gpg-agent = {
+        enable = true;
+        enableSshSupport = false;
+        # Use macOS pinentry for GUI prompts
+        pinentryPackage = pkgs.pinentry_mac;
+        defaultCacheTtl = 86400;       # 24 hours
+        maxCacheTtl = 604800;          # 7 days
+      };
 
       # Marked broken Oct 20, 2022 check later to remove this
       # https://github.com/nix-community/home-manager/issues/3344
@@ -112,10 +122,6 @@ in
         { path = "/System/Applications/Photos.app/"; }
         { path = "/System/Applications/Photo Booth.app/"; }
         { path = "/System/Applications/System Settings.app/"; }
-        {
-          path = toString myEmacsLauncher;
-          section = "others";
-        }
         {
           path = "${config.users.users.${user}.home}/Downloads";
           section = "others";

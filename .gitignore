@@ -28,3 +28,7 @@ secrets/*.key
 local.nix
 local/
 *.local.nix
+
+# Logs
+logfile
+tmp/

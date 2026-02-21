@@ -22,6 +22,9 @@ let name = "Nate Aune";
       }
     ];
     initContent = lib.mkBefore ''
+      # Source local secrets/env vars not managed by nix
+      [[ -f ~/.zshenv.local ]] && source ~/.zshenv.local
+
       if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
         . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
         . /nix/var/nix/profiles/default/etc/profile.d/nix.sh
@@ -32,6 +35,8 @@ let name = "Nate Aune";
       export PATH=$HOME/.pnpm-packages/bin:$HOME/.pnpm-packages:$PATH
       export PATH=$HOME/.npm-packages/bin:$HOME/bin:$PATH
       export PATH=$HOME/.local/share/bin:$PATH
+      export PATH=$HOME/.omnara/bin:$PATH
+      export PATH=$HOME/.opencode/bin:$PATH
 
       # Homebrew (macOS)
       if [[ -f /opt/homebrew/bin/brew ]]; then
@@ -44,14 +49,9 @@ let name = "Nate Aune";
       # Ripgrep alias
       alias search=rg -p --glob '!node_modules/*'  $@
 
-      # Emacs is my editor
-      export ALTERNATE_EDITOR=""
-      export EDITOR="emacsclient -t"
-      export VISUAL="emacsclient -c -a emacs"
-
-      e() {
-          emacsclient -t "$@"
-      }
+      # Vim is my editor
+      export EDITOR="vim"
+      export VISUAL="vim"
 
       # nix shortcuts
       shell() {
@@ -74,6 +74,7 @@ let name = "Nate Aune";
       # DGX Spark mount helpers (requires macfuse + sshfs-mac)
       alias dgx-mount='mkdir -p ~/mnt/dgx && sshfs natea@sparc-ca4b:/workspaces/backlit-devpod-spark ~/mnt/dgx -o allow_other,defer_permissions,IdentityFile=~/.ssh/id_ed25519,reconnect,ServerAliveInterval=15,ServerAliveCountMax=3'
       alias dgx-unmount='umount ~/mnt/dgx'
+
     '';
   };
 
@@ -83,6 +84,12 @@ let name = "Nate Aune";
     lfs = {
       enable = true;
     };
+    # GPG signing - disabled until key is generated
+    # See ~/Desktop/gpg-signing.md for setup instructions
+    # signing = {
+    #   key = "YOUR_GPG_KEY_ID";  # Replace with: gpg --list-secret-keys --keyid-format LONG
+    #   signByDefault = true;
+    # };
     settings = {
       user.name = name;
       user.email = email;
@@ -90,8 +97,7 @@ let name = "Nate Aune";
       core = {
         editor = "vim";
         autocrlf = "input";
-      };    
-      commit.gpgsign = true;
+      };
       pull.rebase = true;
       rebase.autoStash = true;
     };
