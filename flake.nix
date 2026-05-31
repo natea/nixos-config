@@ -39,8 +39,12 @@
       url = "github:danielmiessler/Fabric";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    devenv = {
+      url = "github:cachix/devenv";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, homebrew-fuse, home-manager, nixpkgs, disko, agenix, secrets, fabric } @inputs:
+  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, homebrew-fuse, home-manager, nixpkgs, disko, agenix, secrets, fabric, devenv } @inputs:
     let
       user = "backlit";
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];

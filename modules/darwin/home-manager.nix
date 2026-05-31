@@ -97,7 +97,7 @@ in
         enable = true;
         enableSshSupport = false;
         # Use macOS pinentry for GUI prompts
-        pinentryPackage = pkgs.pinentry_mac;
+        pinentry.package = pkgs.pinentry_mac;
         defaultCacheTtl = 86400;       # 24 hours
         maxCacheTtl = 604800;          # 7 days
       };

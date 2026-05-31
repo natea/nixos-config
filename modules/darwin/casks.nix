@@ -15,6 +15,7 @@ _:
   "godot"
   "devpod"
   "gcloud-cli"
+  "android-studio"  # Android IDE + bundled SDK manager (for Gradle/Android SDK resolution)
 
   # Productivity Tools
   "raycast"
@@ -45,7 +46,7 @@ _:
   # Utility Tools - Examples (uncomment as needed)
   # "syncthing"
   "macfuse"  # Required for SSHFS filesystem mounting
-  "tailscale"
+  "tailscale-app"
   "1password"
   "1password-cli"
   "shottr"
@@ -66,7 +67,9 @@ _:
   # AI Tools - Examples (uncomment as needed)
   "chatgpt"
   "claude"
+  "llamabarn"
   "granola"  # AI notepad for meetings
+  # "lm-studio"  # Local LLM runner - broken: outdated SHA-256 in homebrew-cask
 
   # "perplexity-ai"  # No cask available - install from App Store or website
   # "groq"  # No cask available - use web app at groq.com
@@ -80,6 +83,9 @@ _:
 
   # Reading & Books
   "calibre"  # E-book management
+
+  # Security
+  "little-snitch"  # macOS firewall
 
   # Voice
   # "wispr-flow"  # No cask available - download from https://wispr.ai

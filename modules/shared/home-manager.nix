@@ -37,6 +37,8 @@ let name = "Nate Aune";
       export PATH=$HOME/.local/share/bin:$PATH
       export PATH=$HOME/.omnara/bin:$PATH
       export PATH=$HOME/.opencode/bin:$PATH
+      export PATH=$HOME/.nix-profile/bin:$PATH
+      export PATH=$HOME/.local/bin:$PATH
 
       # Homebrew (macOS)
       if [[ -f /opt/homebrew/bin/brew ]]; then
@@ -70,6 +72,10 @@ let name = "Nate Aune";
 
       # nixai with OpenAI defaults (workaround for config not being read)
       alias nixai='nixai --provider openai --model gpt-4o'
+
+      # macOS VM helpers (Tart)
+      alias vm-tahoe='tart run tahoe-base'
+      alias vm-tahoe-setup='tart clone ghcr.io/cirruslabs/macos-tahoe-base:latest tahoe-base'
 
       # DGX Spark mount helpers (requires macfuse + sshfs-mac)
       alias dgx-mount='mkdir -p ~/mnt/dgx && sshfs natea@sparc-ca4b:/workspaces/backlit-devpod-spark ~/mnt/dgx -o allow_other,defer_permissions,IdentityFile=~/.ssh/id_ed25519,reconnect,ServerAliveInterval=15,ServerAliveCountMax=3'

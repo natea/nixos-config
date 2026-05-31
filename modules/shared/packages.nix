@@ -26,12 +26,16 @@ with pkgs; [
   libfido2
   _1password-cli  # 1Password CLI (op)
 
+  # Infrastructure and automation
+  ansible
+
   # Cloud-related tools and SDKs
   docker
   docker-compose
   lima        # Linux VM manager for macOS
   colima      # Container runtime (Docker Desktop alternative)
   lazydocker  # Terminal UI for Docker containers
+  tart        # macOS/Linux VMs on Apple Silicon
   mutagen     # File sync for remote development
   spotctl     # CLI for Spot by NetApp (Rackspace Spot)
   tailscale   # Mesh VPN built on WireGuard
@@ -48,10 +52,13 @@ with pkgs; [
   meslo-lgs-nf
 
   # Node.js development tools
-  nodejs_24
+  nodejs_22
   nodePackages.pnpm
   nodePackages.wrangler
   bun         # Fast JavaScript runtime, bundler, and package manager
+
+  # Databases
+  mysql84
 
   # Text and terminal utilities
   htop
@@ -65,6 +72,7 @@ with pkgs; [
   zsh-powerlevel10k
   
   # Development tools
+  devenv      # Developer environments using Nix
   curl
   gh
   ngrok        # Secure tunnels to localhost
@@ -72,6 +80,7 @@ with pkgs; [
   kubectl
   awscli2
   flyctl      # Fly.io CLI
+  google-cloud-sdk  # Google Cloud CLI (gcloud, gsutil, bq)
   cloudflared # Cloudflare Tunnel client
   lazygit
   jujutsu    # Git-compatible VCS (jj command)
@@ -85,6 +94,7 @@ with pkgs; [
 
   # Databases
   postgresql_16  # PostgreSQL 16
+  supabase-cli   # Supabase CLI
 
   # Python packages
   # Create a Python environment with packages bundled together
