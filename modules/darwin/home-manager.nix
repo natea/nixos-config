@@ -32,6 +32,8 @@ in
     casks = pkgs.callPackage ./casks.nix {};
     brews = [
       "gromgit/fuse/sshfs-mac"  # SSHFS for mounting remote filesystems
+      "cmake"
+      "difftastic"  # provides `difft`, syntax-aware diff
     ];
     # onActivation.cleanup = "uninstall";
 
