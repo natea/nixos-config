@@ -14,7 +14,6 @@ with pkgs; [
   btop
   coreutils
   killall
-  openssh
   sqlite
   wget
   zip
@@ -40,6 +39,16 @@ with pkgs; [
   spotctl     # CLI for Spot by NetApp (Rackspace Spot)
   tailscale   # Mesh VPN built on WireGuard
 
+  # Document and typesetting tools
+  pandoc        # Universal document converter
+  # LaTeX distribution for pandoc PDF output (pdflatex/xelatex/lualatex + common .sty packages)
+  (texliveBasic.withPackages (ps: with ps; [
+    collection-latexrecommended  # xcolor, fancyhdr, etc.
+    collection-latexextra        # extra packages pandoc templates pull in
+    collection-fontsrecommended
+    collection-xetex             # xelatex
+  ]))
+
   # Media-related packages
   yt-dlp      # YouTube and video downloader
   dejavu_fonts
@@ -53,8 +62,8 @@ with pkgs; [
 
   # Node.js development tools
   nodejs_22
-  nodePackages.pnpm
-  nodePackages.wrangler
+  pnpm
+  wrangler
   bun         # Fast JavaScript runtime, bundler, and package manager
 
   # Databases
@@ -102,6 +111,7 @@ with pkgs; [
   (python3.withPackages (ps: with ps; [
     setuptools  # Provides distutils for node-gyp (removed in Python 3.12+)
     cython      # C-extensions for Python
+    jupyterlab  # JupyterLab notebook interface (provides `jupyter lab`)
   ]))
   (lib.lowPrio python311)  # Python 3.11 (lower priority to avoid conflicts with python3)
   virtualenv
@@ -127,3 +137,6 @@ with pkgs; [
   python3Packages.llm-perplexity
   # Note: llm-openai is not needed - OpenAI support is built into the base llm package
 ]
+# OpenSSH client only on Linux: on macOS use Apple's /usr/bin/ssh so every tool
+# (OpenResearch's orx runner, git, terminal) shares one build with Keychain/FIDO support.
+++ lib.optionals pkgs.stdenv.isLinux [ pkgs.openssh ]
