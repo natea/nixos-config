@@ -10,12 +10,22 @@ in
   ];
 
   # It me
+  # nix-darwin only applies `shell` to users listed in knownUsers (which requires uid).
+  users.knownUsers = [ user ];
   users.users.${user} = {
     name = "${user}";
+    uid = 501;
     home = "/Users/${user}";
     isHidden = false;
     shell = pkgs.zsh;
   };
+
+  # Home-manager's .zshrc already runs compinit, so skip the duplicate one in /etc/zshrc.
+  programs.zsh = {
+    enable = true;
+    enableCompletion = false;
+  };
+  environment.shells = [ pkgs.zsh ];
 
   homebrew = {
     enable = true;
