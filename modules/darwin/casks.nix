@@ -37,6 +37,7 @@ _:
   "discord"
   "notion"
   "slack"
+  "microsoft-teams"
   "telegram"
   "zoom"
   "whatsapp"
@@ -83,6 +84,7 @@ _:
 
   # Reading & Books
   "calibre"  # E-book management
+  # "send-to-kindle"  # Removed: download URL 403s (broken upstream cask)
 
   # Security
   "little-snitch"  # macOS firewall
